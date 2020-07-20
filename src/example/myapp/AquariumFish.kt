@@ -10,12 +10,9 @@ class Shark(override val color: String = "gray") : AquariumFish(), FishAction{
     }
 }
 
-class Plecostomus: FishColor by GoldColor, FishAction {
-    override val color = "gold"
-    override fun eat() {
-        println("sheat")
-    }
-}
+class Plecostomus(fishColor:FishColor = GoldColor):
+        FishColor by fishColor,
+        FishAction by PrintingFishAction("eat eagle")
 
 interface FishAction {
     fun eat()
@@ -27,4 +24,10 @@ interface FishColor {
 
 object GoldColor: FishColor {
     override val color: String = "gold"
+}
+
+class PrintingFishAction(val food: String) : FishAction {
+    override fun eat() {
+        println(food)
+    }
 }
